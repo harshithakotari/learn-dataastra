@@ -1,0 +1,40 @@
+:root {
+  --color-primary: 99 102 241;
+  --color-primary-dark: 79 70 229;
+  --color-success: 16 185 129;
+  --color-warning: 245 158 11;
+  --color-danger: 239 68 68;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  
+  --spacing-section: 4rem;
+}
+
+.dark {
+  --color-bg-base: 2 6 23;
+  --color-bg-elevated: 15 23 42;
+  --color-text-primary: 248 250 252;
+  --color-text-secondary: 203 213 225;
+  --color-border: 30 41 59;
+}
+
+/* Neon accents for dark mode */
+.dark .neon-accent {
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.dark .neon-text {
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-slate-950;
+}
+
