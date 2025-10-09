@@ -33,6 +33,21 @@ if (typeof window !== 'undefined') {
       window.history.replaceState(window.history.state, '', window.location.pathname + cleanSearch)
     }
   }
+  
+  // Additional safety check for blank screen issues
+  const isRedirected = sessionStorage.getItem('spa-redirect')
+  if (isRedirected) {
+    sessionStorage.removeItem('spa-redirect')
+    // Ensure we're on a valid route
+    const currentPath = window.location.pathname
+    const validRoutes = ['/', '/roles', '/roadmap', '/projects', '/portfolio', '/achievements', '/motivation', '/references']
+    const isRoleRoute = currentPath.startsWith('/role/')
+    
+    if (!validRoutes.includes(currentPath) && !isRoleRoute) {
+      // Redirect to home if we're on an invalid route
+      window.history.replaceState(null, '', '/learn-dataastra/')
+    }
+  }
 }
 
 function App() {

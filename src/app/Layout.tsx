@@ -30,9 +30,18 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   // Handle browser back/forward navigation
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopState = (event: PopStateEvent) => {
       // Clear any redirect flags
       sessionStorage.removeItem('spa-redirect')
+      
+      // Prevent blank screen by ensuring the page is properly loaded
+      if (event.state && event.state.fromRedirect) {
+        // This was a redirected page, ensure proper loading
+        setTimeout(() => {
+          window.location.reload()
+        }, 100)
+        return
+      }
       
       // Force re-render on back/forward navigation
       window.dispatchEvent(new Event('popstate'))
@@ -41,6 +50,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     // Listen for popstate events (back/forward button)
     window.addEventListener('popstate', handlePopState)
 
+    // Handle page visibility changes (when user comes back to tab)
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // Page became visible, ensure it's properly loaded
+        const currentPath = window.location.pathname
+        if (currentPath.includes('learn-dataastra') && !document.querySelector('#root > div')) {
+          // If we're on the site but content isn't loaded, reload
+          window.location.reload()
+        }
+      }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     // Ensure scroll restoration is manual for better control
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
@@ -48,6 +71,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       window.removeEventListener('popstate', handlePopState)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
 
