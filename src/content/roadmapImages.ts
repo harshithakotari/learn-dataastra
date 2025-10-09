@@ -2,7 +2,7 @@ import type { RoleSlug } from '../config/routes'
 
 export const roadmapImages: Record<RoleSlug, string> = {
   'bi-analyst': '/learn-dataastra/assets/roadmaps/bi-analyst.png?v=2025',
-  'data-analyst': '/learn-dataastra/assets/roadmaps/data-analyst.png',
+  'data-analyst': '/learn-dataastra/assets/roadmaps/data-analyst.png?v=2025',
   'data-engineer': '/learn-dataastra/assets/roadmaps/data-engineer.png',
   'data-scientist': '/learn-dataastra/assets/roadmaps/data-scientist.png?v=2025',
   'ml-engineer': '/learn-dataastra/assets/roadmaps/ml-engineer.png?v=2025',
