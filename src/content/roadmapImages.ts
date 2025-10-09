@@ -5,7 +5,7 @@ export const roadmapImages: Record<RoleSlug, string> = {
   'data-analyst': '/learn-dataastra/assets/roadmaps/data-analyst.png',
   'data-engineer': '/learn-dataastra/assets/roadmaps/data-engineer.png',
   'data-scientist': '/learn-dataastra/assets/roadmaps/data-scientist.png?v=2025',
-  'ml-engineer': '/learn-dataastra/assets/roadmaps/ml-engineer.png',
+  'ml-engineer': '/learn-dataastra/assets/roadmaps/ml-engineer.png?v=2025',
   'ai-engineer': '/learn-dataastra/assets/roadmaps/ai-engineer.png?v=2025',
   'ui-ux-designer': '/learn-dataastra/assets/roadmaps/ui-ux-designer.png',
   'backend-engineer': '/learn-dataastra/assets/roadmaps/backend-engineer.png',
