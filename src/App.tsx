@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { Layout } from './app/Layout'
 import { HomePage } from './pages/home/HomePage'
 import { RolesPage } from './pages/roles/RolesPage'
@@ -12,6 +13,17 @@ import { ReferencesPage } from './pages/static/ReferencesPage'
 import { ROUTES } from './config/routes'
 
 function App() {
+  // Handle GitHub Pages SPA redirect
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectPath = urlParams.get('/');
+    
+    if (redirectPath) {
+      const cleanPath = redirectPath.replace(/~and~/g, '&');
+      window.history.replaceState(null, '', cleanPath);
+    }
+  }, []);
+
   return (
     <BrowserRouter basename="/learn-dataastra">
       <Layout>
