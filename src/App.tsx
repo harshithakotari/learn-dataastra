@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
 import { Layout } from './app/Layout'
 import { HomePage } from './pages/home/HomePage'
 import { RolesPage } from './pages/roles/RolesPage'
@@ -12,18 +11,31 @@ import { MotivationPage } from './pages/static/MotivationPage'
 import { ReferencesPage } from './pages/static/ReferencesPage'
 import { ROUTES } from './config/routes'
 
-function App() {
-  // Handle GitHub Pages SPA redirect
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirectPath = urlParams.get('/');
+// Handle GitHub Pages SPA redirect BEFORE React Router initializes
+if (typeof window !== 'undefined') {
+  const urlParams = new URLSearchParams(window.location.search)
+  const redirectPath = urlParams.get('/')
+  
+  if (redirectPath) {
+    const cleanPath = redirectPath.replace(/~and~/g, '&')
+    const newUrl = window.location.pathname.split('/').slice(0, 2).join('/') + cleanPath
     
-    if (redirectPath) {
-      const cleanPath = redirectPath.replace(/~and~/g, '&');
-      window.history.replaceState(null, '', cleanPath);
+    // Replace the URL in history without triggering navigation
+    window.history.replaceState(
+      { ...window.history.state, fromRedirect: true },
+      '',
+      newUrl
+    )
+    
+    // Remove the query parameter
+    const cleanSearch = window.location.search.replace(/\?\/[^&]*/, '')
+    if (cleanSearch && cleanSearch !== '?') {
+      window.history.replaceState(window.history.state, '', window.location.pathname + cleanSearch)
     }
-  }, []);
+  }
+}
 
+function App() {
   return (
     <BrowserRouter basename="/learn-dataastra">
       <Layout>

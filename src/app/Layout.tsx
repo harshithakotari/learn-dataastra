@@ -28,6 +28,34 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     setMobileMenuOpen(false)
   }, [location])
 
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      // Clear any redirect flags
+      sessionStorage.removeItem('spa-redirect')
+      
+      // Force re-render on back/forward navigation
+      window.dispatchEvent(new Event('popstate'))
+    }
+
+    // Listen for popstate events (back/forward button)
+    window.addEventListener('popstate', handlePopState)
+
+    // Ensure scroll restoration is manual for better control
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [location.pathname])
+
   const navLinks = [
     { label: 'Home', path: ROUTES.home },
     { label: 'Roles', path: ROUTES.roles },
