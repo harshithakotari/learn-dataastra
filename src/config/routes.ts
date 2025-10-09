@@ -5,6 +5,7 @@ export const ROUTES = {
   roadmap: '/roadmap',
   projects: '/projects',
   portfolio: '/portfolio',
+  achievements: '/achievements',
   motivation: '/motivation',
   references: '/references',
 } as const

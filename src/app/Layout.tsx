@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useProgress } from '../state/progress'
 import { ROUTES } from '../config/routes'
 import { APP_CONFIG } from '../config/app'
 
@@ -15,8 +14,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   })
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
-  const { getGlobalProgressStats } = useProgress()
-  const globalStats = getGlobalProgressStats()
 
   useEffect(() => {
     if (darkMode) {
@@ -37,6 +34,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     { label: 'Roadmap', path: ROUTES.roadmap },
     { label: 'Projects', path: ROUTES.projects },
     { label: 'Portfolio', path: ROUTES.portfolio },
+    { label: 'Achievements', path: ROUTES.achievements },
     { label: 'Motivation', path: ROUTES.motivation },
     { label: 'References', path: ROUTES.references },
   ]
@@ -92,37 +90,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
 
-          {/* Global Progress */}
-          {globalStats.total > 0 && (
-            <div className="mt-4 hidden lg:block">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-3 shadow-sm"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-body font-medium text-slate-700 dark:text-slate-300">
-                    Overall Progress
-                  </span>
-                  <span className="text-sm font-body font-semibold text-slate-900 dark:text-slate-100">
-                    {globalStats.percentage}%
-                  </span>
-                </div>
-                <div className="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-primary-600 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${globalStats.percentage}%` }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
-                  />
-                </div>
-                <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-                  {globalStats.completed} of {globalStats.total} tasks completed
-                </div>
-              </motion.div>
-            </div>
-          )}
         </div>
 
         {/* Mobile Nav */}
@@ -149,36 +116,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     {link.label}
                   </Link>
                 ))}
-                {globalStats.total > 0 && (
-                  <div className="mt-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-3 shadow-sm"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-body font-medium text-slate-700 dark:text-slate-300">
-                          Overall Progress
-                        </span>
-                        <span className="text-sm font-body font-semibold text-slate-900 dark:text-slate-100">
-                          {globalStats.percentage}%
-                        </span>
-                      </div>
-                      <div className="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-primary-600 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${globalStats.percentage}%` }}
-                          transition={{ duration: 0.3, ease: 'easeOut' }}
-                        />
-                      </div>
-                      <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-                        {globalStats.completed} of {globalStats.total} tasks completed
-                      </div>
-                    </motion.div>
-                  </div>
-                )}
               </nav>
             </motion.div>
           )}
