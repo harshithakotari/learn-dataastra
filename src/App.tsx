@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './app/Layout'
 import { HomePage } from './pages/home/HomePage'
 import { RolesPage } from './pages/roles/RolesPage'
-import { RoleDetailPage } from './pages/role/RoleDetailPage'
-import { RoadmapPage } from './pages/roadmap/RoadmapPage'
+import RolePage from './pages/role/[slug]'
+import RoadmapPage from './pages/roadmap'
 import { ProjectsPage } from './pages/projects/ProjectsPage'
 import { PortfolioPage } from './pages/static/PortfolioPage'
 import { MotivationPage } from './pages/static/MotivationPage'
@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path={ROUTES.home} element={<HomePage />} />
           <Route path={ROUTES.roles} element={<RolesPage />} />
-          <Route path="/role/:slug" element={<RoleDetailPage />} />
+          <Route path="/role/:slug" element={<RolePage />} />
           <Route path={ROUTES.roadmap} element={<RoadmapPage />} />
           <Route path={ROUTES.projects} element={<ProjectsPage />} />
           <Route path={ROUTES.portfolio} element={<PortfolioPage />} />

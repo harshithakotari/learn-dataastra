@@ -7,6 +7,8 @@ interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean
   size?: 'sm' | 'md' | 'lg'
   variant?: 'default' | 'success' | 'warning'
+  label?: string
+  smooth?: boolean
 }
 
 export const ProgressBar = ({
@@ -15,6 +17,8 @@ export const ProgressBar = ({
   showLabel = true,
   size = 'md',
   variant = 'default',
+  label = 'Progress',
+  smooth = true,
   className = '',
   ...props
 }: ProgressBarProps) => {
@@ -40,7 +44,7 @@ export const ProgressBar = ({
       {showLabel && (
         <div className="flex justify-between items-center mb-1">
           <span className="text-sm font-body font-medium text-slate-700 dark:text-slate-300">
-            Progress
+            {label}
           </span>
           <span className="text-sm font-body font-semibold text-slate-900 dark:text-slate-100">
             {percentage}%
@@ -49,10 +53,14 @@ export const ProgressBar = ({
       )}
       <div className={`w-full ${sizes[size]} bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden`}>
         <motion.div
-          className={`h-full ${getVariantColor()} rounded-full`}
+          className={`h-full ${getVariantColor()} rounded-full transition-all duration-300`}
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          transition={{ 
+            duration: smooth ? 0.5 : 0.3, 
+            ease: 'easeOut',
+            delay: smooth ? 0 : 0
+          }}
         />
       </div>
     </div>

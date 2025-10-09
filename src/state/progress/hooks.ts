@@ -30,14 +30,17 @@ export const useProgress = () => {
         currentState,
         role.slug,
         role.categories.length,
-        (categoryIndex) => {
+        Array.from({ length: role.categories.length }, (_, categoryIndex) => {
           const category = role.categories[categoryIndex]
-          return [
-            { level: 'Basic', subtasksCount: category.levels.Basic.subtasks.length },
-            { level: 'Intermediate', subtasksCount: category.levels.Intermediate.subtasks.length },
-            { level: 'Advanced', subtasksCount: category.levels.Advanced.subtasks.length },
-          ]
-        }
+          return {
+            name: category.name,
+            levels: [
+              { level: 'Basic', subtasksCount: category.levels.Basic.subtasks.length },
+              { level: 'Intermediate', subtasksCount: category.levels.Intermediate.subtasks.length },
+              { level: 'Advanced', subtasksCount: category.levels.Advanced.subtasks.length },
+            ]
+          }
+        })
       )
       return { ...newState }
     })

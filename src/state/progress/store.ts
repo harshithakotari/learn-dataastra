@@ -1,4 +1,5 @@
 import type { ProgressState, RoleProgress } from './types'
+import { generateTaskId, generateProjectId } from './types'
 
 const STORAGE_KEY = 'learn-dataastra-progress'
 
@@ -29,20 +30,27 @@ export const initializeRoleProgress = (
   state: ProgressState,
   roleSlug: string,
   categoriesCount: number,
-  getCategoryLevels: (categoryIndex: number) => { level: string; subtasksCount: number }[]
+  categoriesData: { 
+    name: string; 
+    levels: { level: string; subtasksCount: number }[] 
+  }[]
 ): ProgressState => {
   if (!state.roles[roleSlug]) {
     const categories = Array.from({ length: categoriesCount }, (_, categoryIndex) => {
-      const levels = getCategoryLevels(categoryIndex).map(({ level, subtasksCount }) => ({
+      const categoryData = categoriesData[categoryIndex]
+      const levels = categoryData.levels.map(({ level, subtasksCount }) => ({
         level: level as 'Basic' | 'Intermediate' | 'Advanced',
         subtasks: Array.from({ length: subtasksCount }, (_, subtaskIndex) => ({
+          id: generateTaskId(roleSlug, categoryData.name, level, subtaskIndex),
           subtaskIndex,
           completed: false,
         })),
         projectCompleted: false,
+        projectId: generateProjectId(roleSlug, categoryData.name, level),
       }))
       return {
         categoryIndex,
+        categoryName: categoryData.name,
         levels,
       }
     })
