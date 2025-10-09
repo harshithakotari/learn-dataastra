@@ -15,7 +15,7 @@ export const HomePage = () => {
     role.description.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const featuredRoles = filteredRoles.slice(0, 6)
+  const featuredRoles = filteredRoles
 
   return (
     <div className="min-h-screen">
