@@ -13,6 +13,19 @@ export default function RoadmapPage() {
   const [focusedIndex, setFocusedIndex] = useState<number>(-1)
   const { getRoleProgressStats } = useProgress()
 
+  // Ensure page loads properly on navigation
+  useEffect(() => {
+    // Force a re-render if needed
+    const timer = setTimeout(() => {
+      if (!document.querySelector('#root > div')) {
+        console.log('RoadmapPage: Content not loaded, reloading...')
+        window.location.reload()
+      }
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
