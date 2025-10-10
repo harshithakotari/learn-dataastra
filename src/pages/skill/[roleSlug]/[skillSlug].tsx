@@ -34,9 +34,10 @@ export default function SkillPage() {
     )
   }
 
-  const category = role.categories.find(cat => 
-    cat.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === skillSlug
-  )
+  const category = role.categories.find(cat => {
+    const normalizedSlug = cat.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
+    return normalizedSlug === skillSlug
+  })
 
   if (!category) {
     return (
