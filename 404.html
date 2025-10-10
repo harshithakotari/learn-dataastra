@@ -8,30 +8,61 @@
     <script>
       // GitHub Pages SPA redirect script
       (function() {
-        var pathSegments = window.location.pathname.split('/').filter(Boolean);
+        var currentPath = window.location.pathname;
         var basePath = '/learn-dataastra';
         var targetPath = '';
         
-        // Handle role routes
-        if (pathSegments[1] === 'role' && pathSegments[2]) {
-          targetPath = basePath + '/role/' + pathSegments[2] + '/index.html';
-        }
-        // Handle static routes
-        else if (pathSegments[1]) {
-          var route = pathSegments[1];
-          if (['roles', 'roadmap', 'projects', 'achievements', 'portfolio', 'motivation', 'references'].includes(route)) {
-            targetPath = basePath + '/' + route + '.html';
+        console.log('404.html script running, current path:', currentPath);
+        
+        // Handle role routes: /learn-dataastra/role/bi-analyst -> /learn-dataastra/role/bi-analyst/index.html
+        if (currentPath.includes('/role/')) {
+          var roleMatch = currentPath.match(/\/role\/([^\/]+)/);
+          if (roleMatch) {
+            targetPath = basePath + '/role/' + roleMatch[1] + '/index.html';
+            console.log('Role route detected, redirecting to:', targetPath);
           }
+        }
+        // Handle static routes: /learn-dataastra/roles -> /learn-dataastra/roles.html
+        else if (currentPath.endsWith('/roles')) {
+          targetPath = basePath + '/roles.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/roadmap')) {
+          targetPath = basePath + '/roadmap.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/projects')) {
+          targetPath = basePath + '/projects.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/achievements')) {
+          targetPath = basePath + '/achievements.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/portfolio')) {
+          targetPath = basePath + '/portfolio.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/motivation')) {
+          targetPath = basePath + '/motivation.html';
+          console.log('Static route detected, redirecting to:', targetPath);
+        }
+        else if (currentPath.endsWith('/references')) {
+          targetPath = basePath + '/references.html';
+          console.log('Static route detected, redirecting to:', targetPath);
         }
         
         if (targetPath) {
+          console.log('Redirecting to:', targetPath);
           window.location.replace(targetPath);
-        } else {
-          // Show 404 content
-          document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.display = 'block';
-          });
+          return;
         }
+        
+        // Show 404 content for truly invalid routes
+        console.log('No redirect match, showing 404 page');
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.style.display = 'block';
+        });
       })();
     </script>
     <style>
