@@ -33,7 +33,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Structured roadmaps, hands-on projects, and progress tracking for BI Analysts, Data Engineers, ML Engineers, and more.
+            Structured learning paths, hands-on projects, and progress tracking for BI Analysts, Data Engineers, ML Engineers, and more.
           </motion.p>
           
           <motion.div
@@ -53,7 +53,7 @@ export const Hero = () => {
               variant="outline"
               onClick={() => navigate(ROUTES.roadmap)}
             >
-              View Roadmaps
+              View Learning Paths
             </Button>
           </motion.div>
         </motion.div>

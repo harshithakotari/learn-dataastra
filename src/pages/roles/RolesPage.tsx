@@ -27,7 +27,7 @@ export const RolesPage = () => {
             All Roles
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
-            Explore all {allRoles.length} learning paths with structured skills, roadmaps, and projects.
+            Explore all {allRoles.length} learning paths with structured skills and hands-on projects.
           </p>
           <div className="max-w-xl">
             <SearchBar

@@ -46,7 +46,7 @@ export default function RolePage() {
             Role not found
           </h1>
           <Button onClick={() => navigate('/roadmap')}>
-            View All Roadmaps
+            View All Roles
           </Button>
         </motion.div>
       </div>
