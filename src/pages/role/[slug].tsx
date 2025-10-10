@@ -115,7 +115,7 @@ export default function RolePage() {
           className="mb-12"
         >
           <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-6">
-            Learning Roadmap
+            Roadmap
           </h2>
           <RoadmapSection roleSlug={role.slug as RoleSlug} roleName={role.role} />
         </motion.div>
@@ -248,7 +248,7 @@ function RoadmapSection({ roleSlug, roleName }: RoadmapSectionProps) {
         {!imageError ? (
           <img
             src={imagePath}
-            alt={`${roleName} Learning Roadmap`}
+            alt={`${roleName} Roadmap`}
             className="w-full h-auto object-contain"
             onError={() => setImageError(true)}
             loading="lazy"
@@ -268,7 +268,7 @@ function RoadmapSection({ roleSlug, roleName }: RoadmapSectionProps) {
         )}
       </div>
       <p className="text-sm text-slate-500 dark:text-slate-500 mt-4 text-center">
-        Visual roadmap showing the complete learning journey for {roleName}
+        Visual roadmap showing the complete journey for {roleName}
       </p>
     </Card>
   )
