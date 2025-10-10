@@ -66,21 +66,6 @@ export default function RolePage() {
           transition={{ duration: 0.2 }}
           className="mb-12"
         >
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              // Use browser history back if available, otherwise navigate to roadmap
-              if (window.history.length > 1) {
-                window.history.back()
-              } else {
-                navigate('/roadmap')
-              }
-            }}
-            className="mb-6"
-          >
-            ← Back to Roadmaps
-          </Button>
           
           <div className="flex items-start gap-6 mb-6">
             <div className="text-6xl">{role.icon}</div>
