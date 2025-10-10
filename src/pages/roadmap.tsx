@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { allRoles } from '../content/roles'
+import { getRoadmapImage } from '../content/roadmapImages'
 import { useProgress } from '../state/progress'
+import type { RoleSlug } from '../config/routes'
 
 export default function RoadmapPage() {
   const navigate = useNavigate()
@@ -105,6 +107,8 @@ interface RoadmapCardProps {
 }
 
 function RoadmapCard({ role, index, isFocused, progress, onClick, onFocus }: RoadmapCardProps) {
+  const [imageError, setImageError] = useState(false)
+  const imagePath = getRoadmapImage(role.slug as RoleSlug)
 
   return (
     <motion.div
@@ -158,14 +162,26 @@ function RoadmapCard({ role, index, isFocused, progress, onClick, onFocus }: Roa
           {role.description}
         </p>
 
-        {/* Role preview */}
-        <div className="relative w-full h-32 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg">
-          <div className="text-center">
-            <div className="text-4xl mb-2">{role.icon}</div>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              {progress.total > 0 ? `${progress.completed}/${progress.total} completed` : 'Start learning'}
-            </p>
-          </div>
+        {/* Roadmap preview */}
+        <div className="relative w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
+          {!imageError ? (
+            <img
+              src={imagePath}
+              alt={`${role.role} Roadmap`}
+              className="w-full h-32 object-cover"
+              onError={() => setImageError(true)}
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-32 flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-1">🗺️</div>
+                <p className="text-xs text-slate-600 dark:text-slate-400">
+                  Roadmap preview
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Keyboard navigation hint */}
