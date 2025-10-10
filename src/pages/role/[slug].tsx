@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '../../components/ui/Button'
@@ -9,6 +9,7 @@ import { Checkbox } from '../../components/ui/Checkbox'
 import { CategoryProgress } from '../../components/ui/CategoryProgress'
 import { RoleProgress } from '../../components/ui/RoleProgress'
 import { getRoleBySlug } from '../../content/roles'
+import { getRoadmapImage } from '../../content/roadmapImages'
 import { useProgress } from '../../state/progress'
 import type { RoleSlug } from '../../config/routes'
 import type { Level } from '../../content/roles/types'
@@ -106,11 +107,24 @@ export default function RolePage() {
           <RoleProgress roleSlug={role.slug} stats={roleStats} />
         </motion.div>
 
-        {/* Skills Section - FIRST */}
+        {/* Roadmap Section - FIRST */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.2 }}
+          className="mb-12"
+        >
+          <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-6">
+            Learning Roadmap
+          </h2>
+          <RoadmapSection roleSlug={role.slug as RoleSlug} roleName={role.role} />
+        </motion.div>
+
+        {/* Skills Section - SECOND */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.2 }}
           className="mb-12"
         >
           <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-8">
@@ -215,6 +229,48 @@ export default function RolePage() {
 
       </div>
     </div>
+  )
+}
+
+// Roadmap Section Component
+interface RoadmapSectionProps {
+  roleSlug: RoleSlug
+  roleName: string
+}
+
+function RoadmapSection({ roleSlug, roleName }: RoadmapSectionProps) {
+  const [imageError, setImageError] = useState(false)
+  const imagePath = getRoadmapImage(roleSlug)
+
+  return (
+    <Card>
+      <div className="relative w-full overflow-hidden rounded-lg bg-slate-50 dark:bg-slate-900">
+        {!imageError ? (
+          <img
+            src={imagePath}
+            alt={`${roleName} Learning Roadmap`}
+            className="w-full h-auto object-contain"
+            onError={() => setImageError(true)}
+            loading="lazy"
+          />
+        ) : (
+          <div className="w-full min-h-[400px] flex items-center justify-center">
+            <div className="text-center p-8">
+              <div className="text-6xl mb-4">🗺️</div>
+              <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
+                Roadmap image not added yet
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-500">
+                Add a PNG at <code className="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-xs">/public/assets/roadmaps/{roleSlug}.png</code>
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+      <p className="text-sm text-slate-500 dark:text-slate-500 mt-4 text-center">
+        Visual roadmap showing the complete learning journey for {roleName}
+      </p>
+    </Card>
   )
 }
 
