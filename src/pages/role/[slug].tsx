@@ -70,7 +70,14 @@ export default function RolePage() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/roadmap')}
+            onClick={() => {
+              // Use browser history back if available, otherwise navigate to roadmap
+              if (window.history.length > 1) {
+                window.history.back()
+              } else {
+                navigate('/roadmap')
+              }
+            }}
             className="mb-6"
           >
             ← Back to Roadmaps
@@ -202,9 +209,21 @@ export default function RolePage() {
                         <h3 className="text-2xl font-heading font-bold text-slate-900 dark:text-white">
                           {category.name}
                         </h3>
-                        <Badge variant="info">
-                          {levels.length} Levels
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Badge variant="info">
+                            {levels.length} Levels
+                          </Badge>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              const skillSlug = category.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
+                              navigate(`/skill/${role.slug}/${skillSlug}`)
+                            }}
+                          >
+                            View Details →
+                          </Button>
+                        </div>
                       </div>
                       
                       <CategoryProgress 
