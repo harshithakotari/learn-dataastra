@@ -209,21 +209,9 @@ export default function RolePage() {
                         <h3 className="text-2xl font-heading font-bold text-slate-900 dark:text-white">
                           {category.name}
                         </h3>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="info">
-                            {levels.length} Levels
-                          </Badge>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {
-                              const skillSlug = category.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
-                              navigate(`/skill/${role.slug}/${skillSlug}`)
-                            }}
-                          >
-                            View Details →
-                          </Button>
-                        </div>
+                        <Badge variant="info">
+                          {levels.length} Levels
+                        </Badge>
                       </div>
                       
                       <CategoryProgress 
