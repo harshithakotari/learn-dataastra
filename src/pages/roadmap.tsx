@@ -59,10 +59,10 @@ export default function RoadmapPage() {
           className="mb-12"
         >
           <h1 className="text-4xl font-heading font-bold text-slate-900 dark:text-white mb-4">
-            Learning Roadmaps
+            Learning Paths
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
-            Choose your learning path. Each roadmap guides you through structured skills and hands-on projects.
+            Choose your learning path. Each role guides you through structured skills and hands-on projects.
             Use arrow keys to navigate, Enter or Space to select.
           </p>
         </motion.div>

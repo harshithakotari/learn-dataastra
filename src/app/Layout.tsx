@@ -71,7 +71,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navLinks = [
     { label: 'Home', path: ROUTES.home },
     { label: 'Roles', path: ROUTES.roles },
-    { label: 'Roadmap', path: ROUTES.roadmap },
+    { label: 'Learning Paths', path: ROUTES.roadmap },
     { label: 'Projects', path: ROUTES.projects },
     { label: 'Portfolio', path: ROUTES.portfolio },
     { label: 'Achievements', path: ROUTES.achievements },
