@@ -5,6 +5,35 @@
     <link rel="icon" type="image/svg+xml" href="/learn-dataastra/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page Not Found - Learn DataAstra</title>
+    <script>
+      // GitHub Pages SPA redirect script
+      (function() {
+        var pathSegments = window.location.pathname.split('/').filter(Boolean);
+        var basePath = '/learn-dataastra';
+        var targetPath = '';
+        
+        // Handle role routes
+        if (pathSegments[1] === 'role' && pathSegments[2]) {
+          targetPath = basePath + '/role/' + pathSegments[2] + '/index.html';
+        }
+        // Handle static routes
+        else if (pathSegments[1]) {
+          var route = pathSegments[1];
+          if (['roles', 'roadmap', 'projects', 'achievements', 'portfolio', 'motivation', 'references'].includes(route)) {
+            targetPath = basePath + '/' + route + '.html';
+          }
+        }
+        
+        if (targetPath) {
+          window.location.replace(targetPath);
+        } else {
+          // Show 404 content
+          document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'block';
+          });
+        }
+      })();
+    </script>
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -12,7 +41,7 @@
         padding: 0;
         background: #f8fafc;
         color: #334155;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         min-height: 100vh;
@@ -70,7 +99,7 @@
       </p>
       <div>
         <a href="/learn-dataastra/" class="btn">🏠 Go Home</a>
-        <a href="/learn-dataastra/roadmap" class="btn btn-secondary">🗺️ View Roadmaps</a>
+        <a href="/learn-dataastra/roadmap.html" class="btn btn-secondary">🗺️ View Roadmaps</a>
       </div>
     </div>
   </body>
