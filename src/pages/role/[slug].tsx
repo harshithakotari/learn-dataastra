@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '../../components/ui/Button'
@@ -9,7 +9,6 @@ import { Checkbox } from '../../components/ui/Checkbox'
 import { CategoryProgress } from '../../components/ui/CategoryProgress'
 import { RoleProgress } from '../../components/ui/RoleProgress'
 import { getRoleBySlug } from '../../content/roles'
-import { getRoadmapImage } from '../../content/roadmapImages'
 import { useProgress } from '../../state/progress'
 import type { RoleSlug } from '../../config/routes'
 import type { Level } from '../../content/roles/types'
@@ -229,57 +228,8 @@ export default function RolePage() {
           </div>
         </motion.div>
 
-        {/* Roadmap Section - SECOND */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.2 }}
-        >
-          <RoadmapSection roleSlug={role.slug as RoleSlug} roleName={role.role} />
-        </motion.div>
       </div>
     </div>
   )
 }
 
-interface RoadmapSectionProps {
-  roleSlug: RoleSlug
-  roleName: string
-}
-
-function RoadmapSection({ roleSlug, roleName }: RoadmapSectionProps) {
-  const [imageError, setImageError] = useState(false)
-  const imagePath = getRoadmapImage(roleSlug)
-
-  return (
-    <Card>
-      <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-6">
-        Learning Roadmap
-      </h2>
-      
-      {!imageError ? (
-        <div className="relative w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
-          <img
-            src={imagePath}
-            alt={`${roleName} Roadmap`}
-            className="w-full h-auto"
-            onError={() => setImageError(true)}
-            loading="lazy"
-          />
-        </div>
-      ) : (
-        <div className="relative w-full p-16 text-center bg-slate-100 dark:bg-slate-800 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700">
-          <div className="text-8xl mb-6">🗺️</div>
-          <h3 className="text-xl font-heading font-semibold text-slate-700 dark:text-slate-300 mb-3">
-            Roadmap image not added yet
-          </h3>
-          <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-            Add a PNG file at: <code className="px-2 py-1 bg-slate-200 dark:bg-slate-900 rounded text-sm font-mono">
-              /public/assets/roadmaps/{roleSlug}.png
-            </code>
-          </p>
-        </div>
-      )}
-    </Card>
-  )
-}
