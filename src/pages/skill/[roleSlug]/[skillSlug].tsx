@@ -13,7 +13,12 @@ export default function SkillPage() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<'basic' | 'intermediate' | 'advanced' | 'projects'>('basic')
 
+  // Debug logging
+  console.log('SkillPage - roleSlug:', roleSlug, 'skillSlug:', skillSlug)
+
   const role = getRoleBySlug(roleSlug as RoleSlug)
+  
+  console.log('SkillPage - role found:', !!role)
   
   if (!role) {
     return (
@@ -36,8 +41,11 @@ export default function SkillPage() {
 
   const category = role.categories.find(cat => {
     const normalizedSlug = cat.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
+    console.log('Checking category:', cat.name, 'normalized:', normalizedSlug, 'against:', skillSlug)
     return normalizedSlug === skillSlug
   })
+  
+  console.log('SkillPage - category found:', !!category, category?.name)
 
   if (!category) {
     return (
