@@ -98,8 +98,3 @@ Drop PNG files into `/public/assets/roadmaps/` with the following names:
 - `ui-ux-designer.png`
 - `backend-engineer.png`
 
-## License
-
-MIT
-
-# Deployment triggered Thu Oct  9 00:05:07 CDT 2025
